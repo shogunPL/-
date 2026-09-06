@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WINTERZANGETSU // shogunPL — dossier operatora</title>
+<meta name="description" content="Portfolio WinterZangetsu (shogunPL) — full-stack developer, twórca TeamMasters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#05070a;
+    --panel:#0a0f16;
+    --panel-2:#0d141d;
+    --line: rgba(53,242,224,0.16);
+    --cyan:#35f2e0;
+    --magenta:#ff3ec8;
+    --violet:#8b6bff;
+    --ink:#d7e6e6;
+    --dim:#5c7278;
+    --dim-2:#324047;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--magenta); color:#05070a; }
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--void); }
+  ::-webkit-scrollbar-thumb{ background:var(--dim-2); border:2px solid var(--void); }
+
+  h1,h2,h3{ font-family:'Rajdhani', sans-serif; margin:0; letter-spacing:0.01em; }
+  a{ color:inherit; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  .scanlines{
+    position:fixed; inset:0; pointer-events:none; z-index:40; opacity:0.5;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+  .vignette{
+    position:fixed; inset:0; pointer-events:none; z-index:39;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .wrap{ max-width:980px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  #rain{ position:absolute; inset:0; width:100%; height:100%; opacity:0.55; }
+  .hero-inner{ position:relative; z-index:2; width:100%; }
+  .tag-id{
+    display:inline-block;
+    font-size:0.78rem;
+    color:var(--cyan);
+    border:1px solid var(--line);
+    padding:5px 12px;
+    background:rgba(53,242,224,0.05);
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    margin-bottom:28px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 8vw, 5.2rem);
+    font-weight:700;
+    color:#eafffb;
+    text-shadow: 0 0 6px rgba(53,242,224,0.55), 0 0 26px rgba(53,242,224,0.25);
+    line-height:1.02;
+  }
+  .hero h1 span{ color:var(--magenta); text-shadow:0 0 6px rgba(255,62,200,0.55), 0 0 26px rgba(255,62,200,0.25); }
+  .hero p.sub{
+    max-width:520px;
+    margin-top:20px;
+    color:#aebdc0;
+    font-size:1.05rem;
+  }
+  .hero-links{ margin-top:34px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.86rem;
+    padding:12px 22px;
+    border:1px solid var(--cyan);
+    color:var(--cyan);
+    text-decoration:none;
+    background:transparent;
+    cursor:pointer;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    display:inline-block;
+  }
+  .btn:hover{ background:var(--cyan); color:#05070a; box-shadow:0 0 22px rgba(53,242,224,0.45); }
+  .btn.alt{ border-color:var(--magenta); color:var(--magenta); }
+  .btn.alt:hover{ background:var(--magenta); color:#05070a; box-shadow:0 0 22px rgba(255,62,200,0.45); }
+
+  .scroll-hint{
+    position:absolute; bottom:26px; left:28px; z-index:2;
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--dim);
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-hint::before{ content:''; width:1px; height:34px; background:var(--dim-2); display:block; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:100px 0; position:relative; border-bottom:1px solid var(--line); }
+  .head-row{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:48px;
+    flex-wrap:wrap;
+  }
+  .head-row .idx{ font-family:'JetBrains Mono', monospace; color:var(--dim); font-size:0.82rem; }
+  .head-row h2{ font-size:clamp(1.7rem,4vw,2.4rem); color:#eafffb; }
+  .head-row .rule{ flex:1; height:1px; background:var(--line); min-width:40px; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1.1fr 1.4fr; gap:48px; }
+  @media (max-width: 760px){ .about-grid{ grid-template-columns:1fr; } }
+  .id-card{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    padding:26px;
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  }
+  .id-card dl{ margin:0; }
+  .id-card dt{ font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--dim); margin-top:16px; }
+  .id-card dt:first-child{ margin-top:0; }
+  .id-card dd{ margin:4px 0 0; color:var(--ink); font-size:0.98rem; }
+  .id-card .status{ color:var(--cyan); }
+  .id-card .status::before{ content:'● '; }
+
+  .modules{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:520px){ .modules{ grid-template-columns:1fr; } }
+  .module{
+    border:1px solid var(--line);
+    padding:20px;
+    background:rgba(13,20,29,0.5);
+  }
+  .module h3{ font-size:1.05rem; color:var(--cyan); font-weight:600; margin-bottom:8px; }
+  .module p{ margin:0; font-size:0.92rem; color:#a9b7ba; }
+
+  /* ---------- PROJECTS ---------- */
+  .case{
+    border:1px solid var(--line);
+    background:rgba(10,15,22,0.6);
+    padding:30px 30px 26px;
+    margin-bottom:22px;
+    position:relative;
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  }
+  .case::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--cyan); box-shadow:0 0 12px rgba(53,242,224,0.6);
+  }
+  .case.magenta::before{ background:var(--magenta); box-shadow:0 0 12px rgba(255,62,200,0.6); }
+  .case-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  .case-tag{ font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--dim); }
+  .case h3{ font-size:1.4rem; color:#eafffb; margin-top:6px; }
+  .case p.desc{ margin:14px 0 0; color:#a9b7ba; max-width:640px; }
+  .case-foot{ margin-top:20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  .chips{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chip{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--dim);
+    border:1px solid var(--dim-2); padding:4px 9px;
+  }
+  .chip.status-live{ color:var(--cyan); border-color:var(--cyan); }
+  .chip.status-live::before{ content:'● '; }
+  .case a.link{
+    font-family:'JetBrains Mono', monospace; font-size:0.82rem; color:var(--cyan);
+    text-decoration:none; border-bottom:1px solid rgba(53,242,224,0.35);
+  }
+  .case a.link:hover{ color:#eafffb; border-color:#eafffb; }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ border-bottom:none; }
+  .contact-panel{
+    border:1px solid var(--line);
+    padding:44px;
+    text-align:left;
+    background:radial-gradient(circle at 20% 20%, rgba(139,107,255,0.08), transparent 60%), var(--panel);
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  }
+  .contact-panel h2{ font-size:clamp(1.8rem,5vw,2.6rem); color:#eafffb; margin-bottom:14px; }
+  .contact-panel p{ color:#a9b7ba; max-width:520px; }
+  .contact-links{ margin-top:30px; display:flex; gap:16px; flex-wrap:wrap; }
+  .contact-row{ margin-top:34px; display:flex; gap:36px; flex-wrap:wrap; font-family:'JetBrains Mono', monospace; font-size:0.85rem; }
+  .contact-row .k{ color:var(--dim); display:block; font-size:0.7rem; margin-bottom:4px; }
+  .contact-row .v{ color:var(--ink); }
+  .contact-row .discord-v{ display:inline-flex; align-items:center; gap:8px; color:var(--cyan); }
+  .contact-links .discord-btn{ display:inline-flex; align-items:center; }
+
+  footer{
+    padding:26px 0 40px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    color:var(--dim);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <canvas id="rain"></canvas>
+  <div class="wrap hero-inner">
+    <span class="tag-id mono">OPERATOR: WINTERZANGETSU // ID: shogunPL</span>
+    <h1>Ghost in<br>the <span>code</span>.</h1>
+    <p class="sub">Full-stack developer, twórca moda do ETS2 oraz autor NNF Map — aplikacji desktopowej dla społeczności Russian Fishing 4. Łączę programowanie, modding w Blenderze i pracę z danymi społeczności, żeby budować narzędzia, z których gracze korzystają na co dzień — od interaktywnych map łowisk po animowane akcesoria do kabiny.</p>
+    <div class="hero-links">
+      <a class="btn" href="#projekty">Zobacz projekty</a>
+      <a class="btn alt" href="https://github.com/shogunPL" target="_blank" rel="noopener">GitHub — shogunPL</a>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL // 01</div>
+</header>
+
+<!-- ABOUT -->
+<section id="o-mnie">
+  <div class="wrap">
+    <div class="head-row">
+      <span class="idx mono">// 01</span>
+      <h2>O mnie</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="about-grid">
+      <div class="id-card">
+        <dl>
+          <dt>PSEUDONIM</dt>
+          <dd>WinterZangetsu</dd>
+          <dt>GITHUB</dt>
+          <dd>shogunPL</dd>
+          <dt>PROJEKT GŁÓWNY</dt>
+          <dd>NNF Map</dd>
+          <dt>STATUS</dt>
+          <dd class="status">aktywny, przyjmuję nowe wyzwania</dd>
+        </dl>
+      </div>
+
+      <div class="modules">
+        <div class="module">
+          <h3>Modding ETS2</h3>
+          <p>Blender + SCS Tools — animowane akcesoria, tekstury, materiały, poprawki kompatybilności map i DLC.</p>
+        </div>
+        <div class="module">
+          <h3>Media &amp; produkcja</h3>
+          <p>Nakładki OBS/vMix, montaż i konwersja materiałów wideo, produkcja treści dla streamu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projekty">
+  <div class="wrap">
+    <div class="head-row">
+      <span class="idx mono">// 02</span>
+      <h2>Projekty</h2>
+      <span class="rule"></span>
+    </div>
+
+    <div class="case magenta">
+      <div class="case-top">
+        <div>
+          <span class="case-tag">FILE::NNFMAP</span>
+          <h3>NNF Map</h3>
+        </div>
+        <span class="chip status-live">w rozwoju — regularne aktualizacje</span>
+      </div>
+      <p class="desc">Aplikacja desktopowa dla graczy Russian Fishing 4. Interaktywne mapy łowisk, dane społeczności NoNameFish, miarka odległości, rysowanie po mapie i lokalny zapis spotów wraz z notatkami.</p>
+      <div class="case-foot">
+        <div class="chips">
+          <span class="chip">Desktop</span><span class="chip">Windows</span><span class="chip">Mapy interaktywne</span>
+        </div>
+        <a class="link" href="https://github.com/shogunPL/mapa_interaktywna_noNameFish.pl" target="_blank" rel="noopener">mapa_interaktywna_noNameFish.pl</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt" class="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Nawiąż połączenie.</h2>
+      <p>Piszcie do mnie, jak macie do mnie interes.</p>
+      <div class="contact-row">
+        <div>
+          <span class="k">DISCORD</span>
+          <span class="v discord-v">
+            <svg width="18" height="18" viewBox="0 0 127.14 96.36" aria-hidden="true"><path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+            Winterzangetsu
+          </span>
+        </div>
+        <div><span class="k">GITHUB</span><span class="v">github.com/shogunPL</span></div>
+      </div>
+      <div class="contact-links">
+        <a class="btn" href="https://github.com/shogunPL" target="_blank" rel="noopener">Profil na GitHubie</a>
+        <button type="button" class="btn alt discord-btn" onclick="navigator.clipboard.writeText('Winterzangetsu'); this.textContent='Skopiowano ✓';">
+          <svg width="16" height="16" viewBox="0 0 127.14 96.36" aria-hidden="true" style="vertical-align:-3px; margin-right:8px;"><path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>Skopiuj Discord — Winterzangetsu
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 WINTERZANGETSU — system aktywny.</span>
+  <span>zbudowane bez frameworków.</span>
+</footer>
+
+<script>
+(function(){
+  var canvas = document.getElementById('rain');
+  var ctx = canvas.getContext('2d');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789';
+  var fontSize = 16;
+  var columns, drops;
+
+  function resize(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = new Array(columns).fill(0).map(function(){ return Math.random() * -50; });
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function drawStatic(){
+    ctx.fillStyle = '#05070a';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font = fontSize + 'px monospace';
+    for(var i=0;i<columns;i++){
+      if(Math.random() > 0.85){
+        ctx.fillStyle = 'rgba(53,242,224,0.18)';
+        var ch = chars[Math.floor(Math.random()*chars.length)];
+        ctx.fillText(ch, i*fontSize, Math.random()*canvas.height);
+      }
+    }
+  }
+
+  if(reduceMotion){
+    drawStatic();
+    return;
+  }
+
+  function frame(){
+    ctx.fillStyle = 'rgba(5,7,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font = fontSize + 'px monospace';
+    for(var i=0;i<columns;i++){
+      var ch = chars[Math.floor(Math.random()*chars.length)];
+      var x = i*fontSize;
+      var y = drops[i]*fontSize;
+      var isHead = Math.random() > 0.94;
+      ctx.fillStyle = isHead ? 'rgba(255,62,200,0.85)' : 'rgba(53,242,224,0.55)';
+      ctx.fillText(ch, x, y);
+      if(y > canvas.height && Math.random() > 0.975){
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
